@@ -4,15 +4,28 @@ class App
 {
     static void Main(string[] args)
     {
-        var program = new Program(DateTime.Now);
+		Console.WriteLine("Enter Festival name:");
+		var festival = new Festival(Console.ReadLine());
 
-        program.AddMovie(new Movie(55, new Genre("Drama"), "Title 1"));
-        program.AddMovie(new Movie(60, new Genre("Triler"), "Title 2"));
-		Console.WriteLine(program.GetData());
+		Console.WriteLine("Enter Number of movies:");
+		int num = Convert.ToInt32(Console.ReadLine());
+
+		List<Movie> movies = new List<Movie>();
+		for(int i = 0; i < num; i++)
+		{
+			movies.Add(CreateMovie());
+		}
+
+		var program = CreateProgram();
+		program.Movies = movies;
+
+		festival.AddProgram(program);
+
+		Console.WriteLine(festival.GetData());
     }
 
 
-    public Movie CreateMovie()
+    public static Movie CreateMovie()
     {
         Console.WriteLine("Enter Movie data:");
         Console.WriteLine("Enter genre:");
@@ -29,7 +42,7 @@ class App
         return new Movie(length, new Genre(genre), title);
 	}
 
-	public Program CreateProgram()
+	public static Program CreateProgram()
 	{
 		Console.WriteLine("Enter Program date:");
 
